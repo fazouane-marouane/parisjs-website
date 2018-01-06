@@ -18,7 +18,7 @@ function initializeHellojs() {
   if (!hellojsInitialized) {
     hello.init(
       {
-        github: 'Iv1.c13e7b19e913ffeb'
+        github: 'Iv1.f3c390c288283fc7'
       },
       {
         redirect_uri:
