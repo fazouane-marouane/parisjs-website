@@ -22,7 +22,7 @@ function initializeHellojs() {
       },
       {
         redirect_uri:
-          'https://parisjs-fork-marouane.netlify.com/propositions/sujet'
+          'https://parisjs-fork-marouane.netlify.com/propositions/sujet/'
       }
     )
     hellojsInitialized = true
