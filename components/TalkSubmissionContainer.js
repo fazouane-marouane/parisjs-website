@@ -21,7 +21,8 @@ function initializeHellojs() {
         github: 'Iv1.c13e7b19e913ffeb'
       },
       {
-        redirect_uri: 'http://127.0.0.1:3333/propositions/sujet'
+        redirect_uri:
+          'https://parisjs-fork-marouane.netlify.com/propositions/sujet'
       }
     )
     hellojsInitialized = true
