@@ -9,6 +9,7 @@ indexMeetups().catch(function (e) {
 async function indexMeetups() {
   const credentials = getCredentials()
   const records = await getAllMeetups()
+  records.sort((a, b)=> a.dateUnix - b.dateUnix)
 
   await uploadDataWithClear(credentials, 'paris.js-meetups', records)
 }
