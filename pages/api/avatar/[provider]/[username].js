@@ -8,6 +8,7 @@ export default function personHandler({ query: { provider, username } }, res) {
       res.redirect(302, url)
     })
     .catch((e) => {
+      console.error("[ERROR] ", e.message)
       res.status(404).send('error')
     })
 }
