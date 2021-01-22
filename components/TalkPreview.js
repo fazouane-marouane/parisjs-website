@@ -12,7 +12,11 @@ const TalkPreview = ({ talk }) => {
     <div className="TalkPreview">
       {talk.authors &&
         talk.authors.map((author) => (
-          <Avatar key={author.name} imageUrl={author.avatar} />
+          <Avatar
+            key={author.name}
+            name={author.name}
+            imageUrl={author.avatar}
+          />
         ))}
       <div>
         <strong>{title}</strong>
