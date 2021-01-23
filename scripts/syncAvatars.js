@@ -1,7 +1,10 @@
-const fs = require('fs')
-const path = require('path')
-const getAvatarUrl = require('../lib/twitter2')
-const { getAllMeetups } = require('../lib/meetups')
+const loadEnv = require('../lib/loadEnv')
+const getAvatarUrl = require('../lib/twitter')
+const {
+  getAllMeetups,
+  getTwitterAvatars,
+  saveTwitterAvatars,
+} = require('../lib/meetups')
 
 syncAvatars()
   .then(() => {
@@ -14,51 +17,39 @@ syncAvatars()
   })
 
 async function syncAvatars() {
+  loadEnv()
   const meetups = await getAllMeetups()
-  const twitterUsers = [
+  const uniqueTwitterUsernames = [
     ...new Set(
       meetups
         .flatMap((m) => m.talks)
         .flatMap((t) => t.authors)
-        .map((author) => author.avatar_twitter)
-        .filter((avatar_twitter) => !!avatar_twitter)
+        .map((author) => {
+          return author.twitter_username
+        })
+        .filter((username) => !!username)
     ),
   ]
+  const total = uniqueTwitterUsernames.length
+  console.info(`Syncing a total of ${total} twitter usernames`)
 
-  const destination = path.join(__dirname, `../content/avatars/twitter.json`)
-  const result = (await fileExists(destination))
-    ? JSON.parse(
-        await fs.promises.readFile(destination, {
-          encoding: 'utf-8',
-        })
-      )
-    : {}
+  const twitterAvatars = await getTwitterAvatars()
 
-  for (const username of twitterUsers) {
-    if (result[username]) {
+  for (const username of uniqueTwitterUsernames) {
+    if (twitterAvatars[username]) {
+      console.info('✅ found', username)
       continue
     }
     try {
       // We should fetch the avatar from twitter
       const url = await getAvatarUrl(username)
-      result[username] = url
+      twitterAvatars[username] = url
+      console.info('✅ found', username)
     } catch (e) {
-      console.warn(`not found @${username}`)
+      console.warn(`❌ not found @${username}`)
     }
   }
 
   // persist
-  await fs.promises.writeFile(destination, JSON.stringify(result, null, 2), {
-    encoding: 'utf-8',
-    flag: '',
-  })
-}
-
-async function fileExists(filename) {
-  try {
-    await fs.promises.stat(filename)
-    return true
-  } catch (e) {
-    return false
-  }
+  await saveTwitterAvatars(twitterAvatars)
 }

@@ -1,15 +1,23 @@
 const algolia = require('algoliasearch')
+
+const loadEnv = require('../lib/loadEnv')
 const { getAllMeetups } = require('../lib/meetups')
 
-indexMeetups().catch(function (e) {
-  console.error(e)
-  process.exit(1)
-})
+indexMeetups()
+  .then(() => {
+    console.log('END.')
+    process.exit(0)
+  })
+  .catch(function (e) {
+    console.error(e)
+    process.exit(1)
+  })
 
 async function indexMeetups() {
+  loadEnv()
   const credentials = getCredentials()
   const records = await getAllMeetups()
-  records.sort((a, b)=> a.dateUnix - b.dateUnix)
+  records.sort((a, b) => a.dateUnix - b.dateUnix)
 
   await uploadDataWithClear(credentials, 'paris.js-meetups', records)
 }
