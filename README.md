@@ -16,6 +16,10 @@ This repository contains the code for the [parisjs.org](https://parisjs.org/) we
 
 ## Help section
 
+### Some avatars seem to be missing
+
+You can try running `yarn avatars:sync` to get the missing avatars if they are available and then create a pull request.
+
 ### How to post talks when running the app locally ?
 
 1. Create a GitHub OAuth app via https://github.com/settings/developers
