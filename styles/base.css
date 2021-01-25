@@ -3,7 +3,7 @@
 }
 
 :root {
-  --pink: #e14680;
+  --pink: #6cd851;
   --purple: #551a8b;
   --purple-dark: #271f46;
   --blue: #00b6ff;
@@ -82,7 +82,7 @@ h3 {
   font-size: 24px;
   margin: 12px 0;
   font-weight: bold;
-  color: #e14680;
+  color: #6cd851;
 }
 
 h4 {

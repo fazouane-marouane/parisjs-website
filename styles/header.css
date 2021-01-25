@@ -1,5 +1,5 @@
 .header {
-  background: #e14680;
+  background: #6cd851;
   color: #ffffff;
 }
 
@@ -38,7 +38,7 @@
 
 .header__nav a:hover,
 .header__nav a.active {
-  background: #c72a63;
+  background: #52a53d;
 }
 
 .languageSwitcher {
